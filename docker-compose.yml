@@ -1,0 +1,26 @@
+version: "3.0"
+services:
+  gzctf:
+    image: registry.cn-shanghai.aliyuncs.com/gztime/gzctf:develop
+    restart: always
+    environment:
+      - "GZCTF_ADMIN_PASSWORD=Abc_1234"
+      # choose your backend language `en_US` / `zh_CN` / `ja_JP`
+      - "LC_ALL=zh_CN.UTF-8"
+    ports:
+      - "80:8080"
+    volumes:
+      - "./data/files:/app/files"
+      - "./appsettings.json:/app/appsettings.json:ro"
+      # - "./kube-config.yaml:/app/kube-config.yaml:ro" # this is required for k8s deployment
+      - "/var/run/docker.sock:/var/run/docker.sock" # this is required for docker deployment
+    depends_on:
+      - db
+ 
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+    volumes:
+      - "./data/db:/var/lib/postgresql/data"
