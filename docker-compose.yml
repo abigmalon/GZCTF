@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   gzctf:
-    image: registry.cn-shanghai.aliyuncs.com/gztime/gzctf:develop
+    image: registry.cn-shanghai.aliyuncs.com/gztime/gzctf:latest
     restart: always
     environment:
       - "GZCTF_ADMIN_PASSWORD=Abc_1234"
